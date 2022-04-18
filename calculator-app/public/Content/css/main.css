@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 200px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  border: 1px solid black;
+}
+
+.btn {
+  height: 48px;
+  border-radius: 6px;
+  padding: 24px, 30px, 25px, 30px;
+}
+
+.btn__operator {
+  width: 52px;
+}
+
+.btn__number {
+  width: 72px;
+}
+
+.btn__number--large {
+  width: 152px;
+}
