@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import cn from "classnames";
 import { BlockType } from "../../types";
 
@@ -7,6 +7,7 @@ type Props = {
     isDropped: boolean;
     isDraggable?: boolean;
     isCurrentDrag?: boolean;
+    setValue?: Dispatch<SetStateAction<string>>;
 };
 
 export const ValueBlock: React.FC<Props> = ({
@@ -32,7 +33,11 @@ export const ValueBlock: React.FC<Props> = ({
                 e.dataTransfer.setData(BlockType.Value, BlockType.Value);
             }}
         >
-            {shouldShow && <div className="value">{value}</div>}
+            {shouldShow && (
+                <div className={cn("value", { "text__wrap": value.length > 12 })}>
+                    {value}
+                </div>
+            )}
         </div>
     );
 };

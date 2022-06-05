@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import cn from "classnames";
 import { BlockType, ButtonProps } from "../../types";
+import { isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
     isDraggable?: boolean;
     isCurrentDrag?: boolean;
+    setValue?: Dispatch<SetStateAction<string>>;
 };
 
 enum Numbers {
@@ -19,7 +21,7 @@ enum Numbers {
     Two,
     One,
     Nil,
-    Comma,
+    Dot,
 }
 
 const NUMBER_LABELS: ButtonProps<Numbers>[] = [
@@ -33,13 +35,14 @@ const NUMBER_LABELS: ButtonProps<Numbers>[] = [
     { label: "2", size: "normal", value: Numbers.Two },
     { label: "1", size: "normal", value: Numbers.One },
     { label: "0", size: "large", value: Numbers.Nil },
-    { label: ",", size: "normal", value: Numbers.Comma },
+    { label: ".", size: "normal", value: Numbers.Dot },
 ];
 
 export const NumbersBlock: React.FC<Props> = ({
     isDropped,
     isDraggable,
     isCurrentDrag,
+    setValue,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -66,6 +69,11 @@ export const NumbersBlock: React.FC<Props> = ({
                             "btn__number--large": size === "large",
                         })}
                         key={value}
+                        onClick={() => {
+                            if (!isNil(setValue)) {
+                                setValue((prevState) => prevState + label)
+                            }
+                        }}
                     >
                         {label}
                     </button>

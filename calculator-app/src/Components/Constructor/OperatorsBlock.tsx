@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BlockType, ButtonProps } from "../../types";
 import cn from "classnames";
+import { isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
     isDraggable?: boolean;
     isCurrentDrag?: boolean;
+    setValue?: Dispatch<SetStateAction<string>>;
 };
 
 enum Operators {
@@ -26,6 +28,7 @@ export const OperatorsBlock: React.FC<Props> = ({
     isDropped,
     isDraggable,
     isCurrentDrag,
+    setValue,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -41,12 +44,39 @@ export const OperatorsBlock: React.FC<Props> = ({
             })}
             draggable={isDraggable}
             onDragStart={(e) => {
-                e.dataTransfer.setData(BlockType.Operators, BlockType.Operators);
+                e.dataTransfer.setData(
+                    BlockType.Operators,
+                    BlockType.Operators
+                );
             }}
         >
             {shouldShow &&
                 OPERATOR_LABELS.map(({ label, value }) => (
-                    <button key={value} className="btn btn__operator">
+                    <button
+                        key={value}
+                        className="btn btn__operator"
+                        onClick={() => {
+                            if (!isNil(setValue)) {
+                                setValue((prevState) => {
+                                    const lastChar = prevState.slice(-1);
+                                    if (
+                                        OPERATOR_LABELS.map(
+                                            ({ label }) => label
+                                        ).includes(lastChar)
+                                    ) {
+                                        const index =
+                                            prevState.lastIndexOf(lastChar);
+                                        return (
+                                            prevState.substring(0, index) +
+                                            label +
+                                            prevState.substring(index + 1)
+                                        );
+                                    }
+                                    return prevState + label;
+                                });
+                            }
+                        }}
+                    >
                         {label}
                     </button>
                 ))}

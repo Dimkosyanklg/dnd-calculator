@@ -13,6 +13,8 @@ export const Dropzone: React.FC<Props> = ({}) => {
     const [droppedBlocks, , , , addDroppedBlock] = useArray<BlockType>([]);
     const [currentDrag, setCurrentDrag] = useState<BlockType>();
 
+    const [value, setValue] = useState<string>("");
+
     return (
         <div
             className="dropzone"
@@ -53,21 +55,25 @@ export const Dropzone: React.FC<Props> = ({}) => {
                 </div>
             )}
             <ValueBlock
-                value=""
+                value={value}
                 isDropped={droppedBlocks.includes(BlockType.Value)}
                 isCurrentDrag={currentDrag === BlockType.Value}
+                setValue={setValue}
             />
             <OperatorsBlock
                 isDropped={droppedBlocks.includes(BlockType.Operators)}
                 isCurrentDrag={currentDrag === BlockType.Operators}
+                setValue={setValue}
             />
             <NumbersBlock
                 isDropped={droppedBlocks.includes(BlockType.Numbers)}
                 isCurrentDrag={currentDrag === BlockType.Numbers}
+                setValue={setValue}
             />
             <EvaluateBlock
                 isDropped={droppedBlocks.includes(BlockType.Evaluate)}
                 isCurrentDrag={currentDrag === BlockType.Evaluate}
+                setValue={setValue}
             />
         </div>
     );

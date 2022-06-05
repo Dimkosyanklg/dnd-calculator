@@ -1,17 +1,20 @@
 import cn from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BlockType } from "../../types";
+import { isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
     isDraggable?: boolean;
     isCurrentDrag?: boolean;
+    setValue?: Dispatch<SetStateAction<string>>;
 };
 
 export const EvaluateBlock: React.FC<Props> = ({
     isDropped,
     isDraggable,
     isCurrentDrag,
+    setValue,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -30,7 +33,27 @@ export const EvaluateBlock: React.FC<Props> = ({
                 e.dataTransfer.setData(BlockType.Evaluate, BlockType.Evaluate);
             }}
         >
-            {shouldShow && <button className="evaluate">=</button>}
+            {shouldShow && (
+                <button
+                    className="evaluate"
+                    onClick={() => {
+                        if (!isNil(setValue)) {
+                            setValue((prevState) => {
+                                const result = eval(prevState).toString();
+                                console.log(result)
+                                if (result.length > 12) {
+                                    return (+eval(prevState).toFixed(
+                                        10
+                                    )).toString();
+                                }
+                                return result;
+                            });
+                        }
+                    }}
+                >
+                    =
+                </button>
+            )}
         </div>
     );
 };
