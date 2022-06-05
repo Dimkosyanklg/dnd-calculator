@@ -21,7 +21,7 @@ export const OperatorsBlock: React.FC<Props> = ({}) => {
     return (
         <div className="container container__operator">
             {OPERATOR_LABELS.map(({ label, value }) => (
-                <div className="btn btn__operator">{label}</div>
+                <button className="btn btn__operator">{label}</button>
             ))}
         </div>
     );

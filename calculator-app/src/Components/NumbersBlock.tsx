@@ -36,14 +36,14 @@ export const NumbersBlock: React.FC<Props> = ({}) => {
     return (
         <div className="container container__button">
             {NUMBER_LABELS.map(({ label, size, value }) => (
-                <div
+                <button
                     className={cn("btn", {
                         btn__number: size === "normal",
                         "btn__number--large": size === "large",
                     })}
                 >
                     {label}
-                </div>
+                </button>
             ))}
         </div>
     );
