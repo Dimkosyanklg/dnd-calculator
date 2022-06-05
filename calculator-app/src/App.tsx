@@ -1,19 +1,21 @@
 import React from "react";
-import { EvaluateBlock } from "./Components/EvaluateBlock";
-import { NumbersBlock } from "./Components/NumbersBlock";
-import { OperatorsBlock } from "./Components/OperatorsBlock";
-import { ValueBlock } from "./Components/ValueBlock";
+import { EvaluateBlock } from "./Components/Constructor/EvaluateBlock";
+import { NumbersBlock } from "./Components/Constructor/NumbersBlock";
+import { OperatorsBlock } from "./Components/Constructor/OperatorsBlock";
+import { ValueBlock } from "./Components/Constructor/ValueBlock";
+import { Dropzone } from "./Components/Dropzone";
 
 export function App() {
     return (
         <div className="wrapper">
             <div className="content">
                 <div className="constructor">
-                    <ValueBlock value="" />
-                    <OperatorsBlock />
-                    <NumbersBlock />
-                    <EvaluateBlock />
+                    <ValueBlock value="" isDropped={true} isDraggable />
+                    <OperatorsBlock isDropped={true} isDraggable />
+                    <NumbersBlock isDropped={true} isDraggable />
+                    <EvaluateBlock isDropped={true} isDraggable />
                 </div>
+                <Dropzone />
             </div>
         </div>
     );
