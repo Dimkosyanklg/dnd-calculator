@@ -1,7 +1,7 @@
 import cn from "classnames";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BlockType } from "../../types";
-import { isNil } from "lodash";
+import { isEmpty, isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
@@ -39,13 +39,18 @@ export const EvaluateBlock: React.FC<Props> = ({
                     onClick={() => {
                         if (!isNil(setValue)) {
                             setValue((prevState) => {
+                                if (isEmpty(prevState)) {
+                                    return prevState;
+                                }
+
                                 const result = eval(prevState).toString();
-                                console.log(result)
+
                                 if (result.length > 12) {
                                     return (+eval(prevState).toFixed(
                                         10
                                     )).toString();
                                 }
+                                
                                 return result;
                             });
                         }
