@@ -14,7 +14,7 @@ button {
 .content {
     margin-top: 15px;
     display: flex;
-    height: 440px;
+    height: 660px;
 }
 
 .constructor {
@@ -24,7 +24,7 @@ button {
 }
 
 .btn {
-    height: 48px;
+    height: 72px;
     border: 1px solid #e2e3e5;
     border-radius: 6px;
     display: flex;
@@ -32,20 +32,21 @@ button {
     align-items: center;
     cursor: pointer;
     background-color: #ffffff;
+    font-size: 21px;
 }
 .btn__operator {
-    width: 52px;
+    width: 78px;
 }
 .btn__number {
-    width: 72px;
+    width: 108px;
 }
 .btn__number--large {
-    width: 152px;
+    width: 228px;
 }
 
 .container {
     display: flex;
-    width: 240px;
+    width: 360px;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
@@ -53,30 +54,30 @@ button {
     border-radius: 4px;
 }
 .container__number {
-    height: 224px;
+    height: 336px;
 }
 .container__operator {
-    height: 56px;
+    height: 84px;
 }
 .container__value {
-    width: 240px;
-    height: 60px;
+    width: 360px;
+    height: 90px;
 }
 .container__evaluate {
-    width: 240px;
-    height: 72px;
+    width: 360px;
+    height: 108px;
 }
 
 .value {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 224px;
-    height: 52px;
+    width: 336px;
+    height: 78px;
     background: #f3f4f6;
     border-radius: 6px;
     font-weight: 800;
-    font-size: 36px;
+    font-size: 54px;
     line-height: 44px;
     padding-right: 8px;
 }
@@ -85,12 +86,12 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 232px;
-    height: 64px;
+    width: 346px;
+    height: 98px;
     background: #5d5fef;
     border-radius: 6px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 21px;
     line-height: 15px;
     color: #ffffff;
     cursor: pointer;
@@ -98,7 +99,7 @@ button {
 
 .dropzone {
     height: 100%;
-    width: 240px;
+    width: 360px;
     margin-left: 15px;
     border: 2px dashed #c4c4c4;
     border-radius: 6px;
@@ -123,17 +124,17 @@ button {
 }
 .dropzone__info--head {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 21px;
     text-align: center;
     color: #5d5fef;
 }
 .dropzone__info--sub {
-    width: 106px;
-    height: 30px;
+    width: 159px;
+    height: 45px;
     left: 10px;
     top: 54px;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 15px;
     text-align: center;
     color: #6b7280;
@@ -148,4 +149,12 @@ button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.disabled {
+    opacity: 50%;
+}
+
+.disabled * {
+    cursor: default;
 }
