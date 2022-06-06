@@ -5,9 +5,10 @@ import { isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
-    isDraggable?: boolean;
     isCurrentDrag?: boolean;
     setValue?: Dispatch<SetStateAction<string>>;
+    disabled?: boolean;
+    draggable?: boolean;
 };
 
 enum Operators {
@@ -26,9 +27,10 @@ const OPERATOR_LABELS: ButtonProps<Operators>[] = [
 
 export const OperatorsBlock: React.FC<Props> = ({
     isDropped,
-    isDraggable,
     isCurrentDrag,
     setValue,
+    disabled,
+    draggable,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -41,8 +43,9 @@ export const OperatorsBlock: React.FC<Props> = ({
             className={cn("container__operator", {
                 "container": shouldShow,
                 "drag__zone": isCurrentDrag,
+                "disabled": disabled
             })}
-            draggable={isDraggable}
+            draggable={draggable && !disabled}
             onDragStart={(e) => {
                 e.dataTransfer.setData(
                     BlockType.Operators,

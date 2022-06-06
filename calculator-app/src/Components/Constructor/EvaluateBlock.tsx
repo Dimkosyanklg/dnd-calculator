@@ -5,16 +5,18 @@ import { isEmpty, isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
-    isDraggable?: boolean;
     isCurrentDrag?: boolean;
     setValue?: Dispatch<SetStateAction<string>>;
+    disabled?: boolean;
+    draggable?: boolean;
 };
 
 export const EvaluateBlock: React.FC<Props> = ({
     isDropped,
-    isDraggable,
     isCurrentDrag,
     setValue,
+    disabled,
+    draggable,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -27,8 +29,9 @@ export const EvaluateBlock: React.FC<Props> = ({
             className={cn("container__evaluate", {
                 "container": shouldShow,
                 "drag__zone": isCurrentDrag,
+                "disabled": disabled,
             })}
-            draggable={isDraggable}
+            draggable={draggable && !disabled}
             onDragStart={(e) => {
                 e.dataTransfer.setData(BlockType.Evaluate, BlockType.Evaluate);
             }}
@@ -43,15 +46,20 @@ export const EvaluateBlock: React.FC<Props> = ({
                                     return prevState;
                                 }
 
-                                const result = eval(prevState).toString();
+                                try {
+                                    const result = eval(prevState).toString();
 
-                                if (result.length > 12) {
-                                    return (+eval(prevState).toFixed(
-                                        10
-                                    )).toString();
+                                    if (result.length > 12) {
+                                        return (+eval(prevState).toFixed(
+                                            10
+                                        )).toString();
+                                    }
+
+                                    return result;
+                                } catch (err) {
+                                    console.log(err);
+                                    return prevState;
                                 }
-                                
-                                return result;
                             });
                         }
                     }}

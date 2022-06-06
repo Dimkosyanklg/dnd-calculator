@@ -7,10 +7,15 @@ import { NumbersBlock } from "../Constructor/NumbersBlock";
 import { OperatorsBlock } from "../Constructor/OperatorsBlock";
 import { ValueBlock } from "../Constructor/ValueBlock";
 
-type Props = {};
+type Props = {
+    droppedBlocks: BlockType[];
+    addDroppedBlock: (value: BlockType) => void;
+};
 
-export const Dropzone: React.FC<Props> = ({}) => {
-    const [droppedBlocks, , , , addDroppedBlock] = useArray<BlockType>([]);
+export const Dropzone: React.FC<Props> = ({
+    droppedBlocks,
+    addDroppedBlock,
+}) => {
     const [currentDrag, setCurrentDrag] = useState<BlockType>();
 
     const [value, setValue] = useState<string>("");

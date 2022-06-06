@@ -5,9 +5,10 @@ import { isNil } from "lodash";
 
 type Props = {
     isDropped: boolean;
-    isDraggable?: boolean;
     isCurrentDrag?: boolean;
     setValue?: Dispatch<SetStateAction<string>>;
+    disabled?: boolean;
+    draggable?: boolean;
 };
 
 enum Numbers {
@@ -40,9 +41,10 @@ const NUMBER_LABELS: ButtonProps<Numbers>[] = [
 
 export const NumbersBlock: React.FC<Props> = ({
     isDropped,
-    isDraggable,
     isCurrentDrag,
     setValue,
+    disabled,
+    draggable,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -55,8 +57,9 @@ export const NumbersBlock: React.FC<Props> = ({
             className={cn("container__number", {
                 "container": shouldShow,
                 "drag__zone": isCurrentDrag,
+                "disabled": disabled,
             })}
-            draggable={isDraggable}
+            draggable={draggable && !disabled}
             onDragStart={(e) => {
                 e.dataTransfer.setData(BlockType.Numbers, BlockType.Numbers);
             }}
@@ -71,7 +74,13 @@ export const NumbersBlock: React.FC<Props> = ({
                         key={value}
                         onClick={() => {
                             if (!isNil(setValue)) {
-                                setValue((prevState) => prevState + label)
+                                setValue((prevState) => {
+                                    if (!prevState.length && value === Numbers.Dot) {
+                                        return prevState;
+                                    }
+
+                                    return prevState + label;
+                                });
                             }
                         }}
                     >

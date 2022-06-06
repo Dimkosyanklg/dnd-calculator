@@ -5,16 +5,18 @@ import { BlockType } from "../../types";
 type Props = {
     value: string;
     isDropped: boolean;
-    isDraggable?: boolean;
     isCurrentDrag?: boolean;
     setValue?: Dispatch<SetStateAction<string>>;
+    disabled?: boolean;
+    draggable?: boolean;
 };
 
 export const ValueBlock: React.FC<Props> = ({
     value,
     isDropped,
-    isDraggable,
     isCurrentDrag,
+    disabled,
+    draggable,
 }) => {
     const [shouldShow, setShouldShow] = useState<boolean>(isDropped);
 
@@ -27,8 +29,9 @@ export const ValueBlock: React.FC<Props> = ({
             className={cn("container__value", {
                 "container": shouldShow,
                 "drag__zone": isCurrentDrag,
+                "disabled": disabled
             })}
-            draggable={isDraggable}
+            draggable={draggable && !disabled}
             onDragStart={(e) => {
                 e.dataTransfer.setData(BlockType.Value, BlockType.Value);
             }}
